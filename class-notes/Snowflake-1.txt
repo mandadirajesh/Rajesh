@@ -1387,19 +1387,7 @@ ANS, 0 RECORDS
 88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
 
----------------------------project details-------------------------------------
--->Melbourne Water uses Snowflake to predict recycled water quality up to two days in advance with 75% accuracy.
--->This allows proactive adjustments to treatment processes, improving efficiency and compliance.
--->Snowflake, integrated with AWS services, as a centralized data platform for Melbourne Water.
--->It consolidates data from sensors,laboratory reports,and weather forecasts for better decision-making.
--->A virtual model of the recycled water system was developed using real-time data and machine learning.
 
--->This digital helps identify factors affecting water quality and optimizes operations accordingly.
--->Snowflake's cloud-based architecture allows Melbourne Water to scale storage and computing power as needed.
--->The platform supports efficient data sharing and collaboration across teams.
--->Snowflake ensures secure data access 
--->Role-based access controls help protect sensitive information.
-	
 		
 
 
