@@ -1,7 +1,7 @@
 *SNOWFLAKE CREDENTIALS:
-              ->account name:urb44929.us-east-1  
-			  ->username :Naidu
-			  ->password: Naidu@1234
+              ->account name:rpb27350.us-east-1
+			  ->username :Rajesh
+			  ->password: Rajesh@9866
 *AZURE CREDENTIALS:
               ->User name:rjms9866@gmail.com
 			  ->password :Rajesh9866167759
@@ -16,7 +16,7 @@
 
 
 1,what is mean by snowflake?
-  -->snowflake is cloud based data warehouse introdued in 2012
+  -->snowflake is cloud based data warehouse platform introdued in 2012
   -->it is mainly used for data storage,data processing,analytical solution
   -->snowflake does not have their own infracture
   -->it built on top of the aws,azure,gcp
@@ -45,16 +45,24 @@
 	
     --> DCL --> Data Control Language 
         a,GRANT: It is used to give user access /privileges to the database 
-	    b,REVOKE: It is used to withdraws the User's access 
+	    b,REVOKE: It is used to withdraws the User's access
 	
     --> TCL --> Transaction Cotrol Language 
         a,COMMIT: It is used to save transactions permanently 
-	    b,ROLLBACK: It is used to revert the previuos tranactions before commit operations
+	    b,ROLLBACK: It is used to revert the previuos transactions before commit operations
 
  		
 5,what is mean by database -->It is a collection of data     	{strecture(table,format),semi-strecture(json,xmlf),un-strecture}
-6,what is mean by warehouse --> we are using to store the data but the purpose is different, 
-                            --> historical data and analytical solution (large voulume of data)     							
+6,what is mean by data warehouse --> we are using to store the data but the purpose is different, 
+                            --> historical data and analytical solution (large voulume of data)  
+6,what is mean by virtual warehouse -->it means inside the server 
+	    create warehouse: 	CREATE WAREHOUSE my_warehouse
+							WITH WAREHOUSE_SIZE = XSMALL
+							AUTO_SUSPEND = 600
+							AUTO_RESUME = TRUE							
+							
+
+  							
 7,data types --> INT/NUMBER,CHAR/VARCHAR/STRING(num,char), DATE/DECIMAL
 8,What is mean by count(*)-->it display the all rows in table
 9,what is mean by count(colum-name) -->it is used to excepted null values in a table
@@ -64,28 +72,92 @@
 11,What is mean by limit and offset?
     -->select * from employee
 	   limit 1,  offset 5
-	   -->limit 1 means display one (row) or (colum)
+	   -->limit 1 means display one (row) 
 	   -->offset means display the after 5 rows (ex, 6)
 
-12,Window functions:
+12,ANALYTICAL FUNCTIONS :
     -->row_numbers:it display only unique values
+	
+	   EX:SELECT FIRST_NAME,
+		      LAST_NAME,
+              ROW_NUMBER()OVER (ORDER BY SALARY) AS ROWNUMBER
+              FROM EMPLOYEES
+ 		output: Karen	Colmenares	1
+				Guy		Himuro		2
+				Irene	Mikkilineni	3
+				Sigal	Tobias		4
+				Shelli	Baida		5
 	-->rank :two rows have same vales, rank also same,but next rank also skip accordingly
+		EX:  SELECT EMPLOYEE_ID,
+			   FIRST_NAME,
+			   LAST_NAME,
+			   RANK() OVER (ORDER BY SALARY) AS DRANK
+			   FROM EMPLOYEES  
 	-->dense_rank :two rows are same values,rank also same, but next rank is not skipped
-	-->lag :it is used to display crrent row to previous row
-	-->lead :it is used to display the current row to next rows
-					
-13,	Whatat is mean by sub_langguage ->it is used to query inside query is also sub-language
-14,CASE	-->if,else
-15,CTE  -->comman table expression
+		EX: SELECT EMPLOYEE_ID,
+			   FIRST_NAME,
+			   LAST_NAME,
+			   DENSE_RANK() OVER (ORDER BY SALARY) AS DRANK
+			   FROM EMPLOYEES
 
-16,set operators  -->the sql set operations are used to combine the two or more table  sql statement 	there are four types
+			200	Jennifer Whalen	    10
+			106	Valli	 Pataballa	11
+			105	David	 Austin		11
+			104	Bruce	 Ernst		12
+			202	Pat		 Fay		12
+			179	Charles	Johnson		13
+	-->lag :it is used to display crrent row to previous row
+		EX:	 SELECT EMPLOYEE_ID,
+			   FIRST_NAME,
+			   LAST_NAME,
+			   lag(salary) OVER (ORDER BY SALARY) AS DRANK
+			   FROM EMPLOYEES
+			119	Karen	Colmenares	NULL
+			118	Guy		Himuro		2500.00
+			126	Irene	Mikkilineni	2600.00
+			117	Sigal	Tobias		2700.00
+	-->lead :it is used to display the current row to next rows
+		EX: 119	Karen	Colmenares	2600.00
+			118	Guy	    Himuro	    2700.00
+			126	Irene	Mikkilineni	2800.00
+			117	Sigal	Tobias	    2900.00
+			100	Steven	King	    NULL
+13,	Whatat is mean by sub_language ->it is used to query inside query is also sub-language
+
+		EX:SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID  IN (SELECT EMPLOYEE_ID FROM DEPENDENTS)
+		
+OUTPUT:100	Steven	King	steven.king@sqltutorial.org	515.123.4567	1987-06-17	4	24000.00      9
+       101	Neena	Kochhar	neena.kochhar@sqltutorial.org 515.123.4568  1989-09-21	5	17000.00 100  9
+	   102	Lex	De Haan	lex.de haan@sqltutorial.org	515.123.4569	1993-01-13	5	17000.00     100  9
+	   
+	   EX: SELECT * FROM EMPLOYEES WHERE EMPLOYEE_ID  NOT IN (SELECT EMPLOYEE_ID FROM DEPENDENTS)
+OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	19	8000.00	100	5	
+       121	Adam	Fripp	adam.fripp@sqltutorial.org	650.123.2234	1997-04-10	19	8200.00	100	5   
+	   122	Payam	Kaufling	payam.kaufling@sqltutorial.org	650.123.3234	1995-05-01	19	7900.00	100	5
+14,CASE	-->if,else
+15,CTE  --> (CTE) in Snowflake is a temporary result set that you define within a SQL query  
+
+			EX:WITH CTE_EMP AS(
+				SELECT FIRST_NAME,
+				LAST_NAME,
+				DENSE_RANK() OVER (ORDER BY SALARY) AS DRANK
+				FROM EMPLOYEES
+				) SELECT * FROM CTE_EMP WHERE DRANK =14
+16,set operators  -->the sql set operations are used to combine the two or more table  sql statement there are four types
 		-->UNION;it is used to display two OR more tables unique values only
+		             
 				  ex;-->table-1 rajesh,satish,mastan
 				     -->Table-2 rajesh,vamsi,sudhakar
+					 select * from table1
+					 union
+					 select * from table2
 					 output;rajesh,satish,mastan,vamsi,sudhakar
 		-->UNION ALL;it is used to display both table information do not remove dupliccate values
 				  ex;-->table-1 rajesh,satish,mastan
 				     -->Table-2 rajesh,vamsi,sudhakar
+					 select * from table1
+					 union all
+					 select * from table2
 					output;rajesh,rajesh,satish,mastan,vamsi,sudhakar
 					
 		-->minuse;minus remove the duplicate rows
@@ -95,6 +167,9 @@
 		-->intersect;it  display the both table common values
 				  ex;-->table-1 rajesh,satish,mastan
 				     -->Table-2 rajesh,vamsi,sudhakar
+					 select * from table1
+					 intersect
+					 select * from table2
 					output;rajesh,
 -->LOGICAL OPERATORS:
 		-->AND: The AND operator displays a record if all the conditions are TRUE.
@@ -108,10 +183,16 @@
 		-->NOT: not operator is used to particular row not executed,
 		        EX: select *  from employees
 					where not first_name ='Steven'
+					
 		-->HAVING: HAVING is used to filter groups records.
 		        EX:select first_name, count(*) from employees
 				   group by first_name
 				   having count(first_name) > 1
+		-->LIKE : like operator is used to search for specific pattern colum
+				EX:SELECT * FROM EMPLOYEES
+                   WHERE FIRST_NAME LIKE 'A%'
+				   
+
 		-->GROUP_BY: The GROUP BY clause in SQL is used to group rows that have the same values in 	specified  columns in summary rows
 				EX:select salary, count(*) from employees
 					 group by salary
@@ -125,16 +206,51 @@
 		-->WHERE: it filter the records particular rows used to where condition
 					EX:select * from employees
 					   where employee_id = 100
-17,AGGRIGATE FUNCTIONS :
-		-->AVG:
-		-->SUM:
-		-->MIN:
-		-->MAX:
-		-->CONCAT:
-		-->UPPER:
-		-->LOWER:
+		-->BETWEEN:it is used to filter the specific range of records			   
+7,AGGRIGATE FUNCTIONS :
+		-->AVG:Calculates the average (mean) of numeric values in a column.
+				EX:SELECT AVG(SALARY) FROM EMPLOYEES
+				
+		-->SUM:Calculates the total (sum) of numeric values in a column.
+				EX:SELECT SUM(SALARY) FROM EMPLOYEES
+				
+		-->MIN:Finds the smallest (minimum) value in a column or expression.
+				EX:SELECT MIN (SALARY) FROM EMPLOYEES
+				
+		-->MAX:Finds the largest (maximum) value in a column or expression.
+				EX:SELECT MAX (SALARY) FROM EMPLOYEES
+				
+		-->CONCAT: The CONCAT function in Snowflake is used to combine multiple string values into a single string.
+				ex:SELECT CONCAT(COUNTRY_ID, ',', COUNTRY_NAME) AS FULL_NAME FROM COUNTRIES
+				OUTPUT:Steven King
+					   Neena Kochhar
+					   Lex De Haan
+					   Alexander Hunold
+		-->UPPER: Converts all characters in a starting to uppercase.
+				ex:SELECT UPPER(COUNTRY_NAME) AS FULL_NAME FROM COUNTRIES
+				OUTPUT: AR
+                        AU
+                        BE
+                        BR
+                        CA
+                        CH
+                        CN
+		-->LOWER:Converts all characters in a string to lowercase.
+		        ex:SELECT LOWER(COUNTRY_NAME) AS FULL_NAME FROM COUNTRIES
+				OUTPUT: ar
+                        au
+                        be
+                        br
+                        ca
+                        ch
+		-->LISTAGG:It is used to concatenate values from multiple rows into a single  string, separated by a specified 	delimiter
 		
-18,SQL JIONS : It is used to display the data from two are more tables
+		        EX:SELECT LISTAGG(FIRST_NAME, ',') FROM EMPLOYEES
+				
+		        OUTPUT:Steven,Neena,Lex,Alexander,Bruce,David,Valli,Diana,Nancy,Daniel,John,Ismael,Jose Manuel,Luis,Den,Alexander,Shelli,Sigal,Guy,Karen,Matthew,Adam,Payam,Shanta,Irene,John,Karen,Jonathon,Jack,Kimberely,Charles,Sarah,Britney,Jennifer,Michael,Pat,Susan,Hermann,Shelley,William
+				
+				
+18,SQL JIONS :In order to fetched the data two or more tables 
 		-->INNER JOIN; It print the matching values from both table 
 						EX.SELECT E.FIRST_NAME,
 						   E.LAST_NAME,
@@ -148,15 +264,13 @@
 					 EX:   SELECT E.FIRST_NAME,
 						   D.FIRST_NAME
 						   FROM EMPLOYEES E
-						   RIGHT OUTER JOIN DEPENDENTS AS D
-						   ON E.FIRST_NAME = D.FIRST_NAME
+						   RIGHT OUTER JOIN DEPENDENTS AS D ON E.FIRST_NAME = D.FIRST_NAME
        
 		-->LEFT JOINN :IT print the all values from leftside table, then matched values from right side table             
 					 EX.   SELECT E.FIRST_NAME,
 						   D.FIRST_NAME
 						   FROM EMPLOYEES E
-						   LEFT OUTER JOIN DEPENDENTS AS D 
-						   ON E.FIRST_NAME = D.LAST_NAME
+						   LEFT OUTER JOIN DEPENDENTS AS D ON E.FIRST_NAME = D.LAST_NAME
 						   
        
        
@@ -164,11 +278,13 @@
 		            EX:SELECT E.FIRST_NAME,
 					   D.FIRST_NAME
 					   FROM EMPLOYEES E
-					   FULL OUTER JOIN DEPENDENTS AS D
-					   ON E.FIRST_NAME = D.FIRST_NAME
+					   FULL OUTER JOIN DEPENDENTS AS D ON E.FIRST_NAME = D.FIRST_NAME
 				  
 		-->SELF JOIN;  It’s used to compare rows within the same table,
-		
+					EX:SELECT E.FIRST_NAME AS NAME,
+					   M.FIRST_NAME AS MANAGER
+					   FROM EMPLOYEES  E
+					   INNER JOIN EMPLOYEES AS M ON E.MANAGER_ID = M.EMPLOYEE_ID
 		
 		-->CROSS JOIN; it print the values from both tales, especially with large tables.
 		(N number of rows and N number of colums)cros multification 3*3 =9
@@ -193,7 +309,7 @@
 
     a,storage layer   :-->data will be stored in columnar format
 					   -->data will be stored in micro partitions
-					   -->the data objects stored by snowflake canot directly visible are directly access by the customar 
+					   -->the data objects stored by snowflake can't directly visible are directly access by the customar 
 					   -->we can also define cluster key on large data for better performance 
 
     b,query processing:-->This is the actual processing unit of snowflake 
@@ -201,7 +317,7 @@
 					   -->vm also scale up and scale down automatically
 					   -->auto suspend and auto resume is available
 	c,cloud service:   -->collection of service that cordinate activities across snowflake
-					   -->This the brain of the snowflake
+					   -->This is  the brain of the snowflake
 					   -->Authentication and access control layer
 					   -->infracture management 
 					   -->metadata management
@@ -218,47 +334,57 @@
 	-->git commit "first_commit"
     -->git push -u origin main
 	
-23,virtual server means: it means inside the server
-24,snowflake editions: there are four types of editions
-	-->Standard
-	-->Enterprise 
-	-->Business critical
-	-->virtual private
+23,VIRTUAL SERVER MEANS: it means inside the server
+
+24,SNOWFLAKE EDITIONS: there are four types of editions
+	-->Standard  -->Retention period =0 to 1
+	-->Enterprise -->Retention period =1 to 90
+	-->Business critical -->Retention period =0 to 90
+	-->virtual private -->Retention period = 0 to 90
 25,Types of virtual warehouse sizes:XS,S,M,L,XL,2XL,3XL,4XL,5XL,6XL,
 
 26,43,TYPES OF ROLES IN SNOWFLAKE :-->there are 2 types of roles 
 	1,SYSTEM DEFINE ROLES:system define roles they are 6 types
 		-->ACCOUNTADMIN
              -->it is the top level role in the system
-			 -->accountadmin can manage account level setting,users,roles,billing,and all  database object
-			 -->can enable multi factor authenticaton only accountadmin
+			 -->account admin can manage account level setting,users,roles,billing,and all  database object
+			 -->can enable multifactor authenticaton only accountadmin
 			 
 		-->SECURITYADMIN
-		     -->Securityadmin manage security-related tasks such as creating and managing users, roles, and granting/revoking privileges.
+		     -->Security admin manage security-related tasks such as creating and managing users, roles, and granting/revoking previleges.
 			 -->Cannot manage account-level settings
 		-->SYSADMIN
-		     -->Responsible for managing database objects and operations,such as creating databases, schemas, tables, and managing data.
+		     -->sysadmin manage database objects and operations,such as creating databases, schemas, tables, and managing data.
 			 -->Does not have user or role management capabilities.
 		-->USERADMIN
-			 -->this roles is granted the create users and create roles security previllege 
+			 -->this roles is granted the create users and  roles security previllege 
 			 -->can create users and roles in the account
 		-->PUBLIC                     
 			 -->Default role assigned to all users		 
 			 -->Provides minimal, default-level access
 		-->ORGADMIN
 		     -->role that manages operations that organization level,more specifically role
-			 -->can create account in the organization 
-			 -->can view usage information across the organization 
+			 -->can create account in the organization
+			 -->can view usage information across the organization
 	2,CUSTOMROLE:
-			 -->customrole can be created by useradmin role
+			 -->custom role can be created by useradmin role
 			 -->by default a newly-created role is not assigned to any user,not granted
-27,stages in snowflake:They are two types of stages in snowflake 
+27,STAGES IN SNOWFLAKE :-->a stage is a specific data files stored  the data can be loaded into tables
+						-->They are two types of stages in snowflake
 	-->INTERNAL STAGE: we can load the data local system to snowflake, using to internal stages
+	1,USER STAGE:
+	2,TABLE STAGE:
+	3,NAMED STAGE:
+27,HOW CAN I REMOVE THE FILES INTERNAL STAGE--> REMOVE @RAJESH_INTERNAL_STAGE
+ 
 	-->EXTERNAL STAGE: we can load the data cloud to snowflake, used to  external stage
-28,PUT COMMAND:Put command is used to load the data into (internal-stage),put command only work CLI,it not work to GUI,
+	
+28,PUT COMMAND:Put command is used to load the data localy to (internal-stage),put command only work CLI,it not work to GUI,
+	EX:PUT file://C:\data\employees.csv
 
 
-29,COPY COMMAND: It is used to load the data stages to tables(INTERNAL/EXTERNAL)
+
+29,COPY COMMAND: It is used to load the data stages to tables(INTERNAL/EXTERNAL) 
 30,COPY OPTIONS:
 	-->VALIDATION_MODE:
 	   1,RETURN_ERRORS:it return error rows only, 
@@ -269,8 +395,8 @@
 	   2,RETURN_ALL_ERRORS:
 	-->ON_ERRORS:
 	  1,CONTINUE:Skip the error records,and load remaining records 
-	    ex:ex: copy into table name
-	   from @stage name
+	    ex:copy into table name
+	       from @stage name
 	   file_format =(type =csv field_delimiter=','skip_header=1)
 	   on_errors = continue
 	   
@@ -279,7 +405,7 @@
 	    from @stage name
 	    file_format =(type =csv field_delimiter=','skip_header=1)
 	    on_errors = skip_file	
-      3,SIZE_LIMIT:	Limits the maximum size of the staged data being loaded.   
+      3,SIZE_LIMIT:	Limit is the maximum size  data loaded stage to table   
 	    ex:ex:ex: copy into table name
 	    from @stage name
 	    file_format =(type =csv field_delimiter=','skip_header=1)
@@ -294,12 +420,12 @@
 			from @stage name
 			file_format =(type = csv field_delimiter=','skip_header=1)
 			TRUNCATECOLUMNS = TRUE
-	  6,ENFORCE_LENGTH: tuncatedcolumns and enforce_length both are same,The table defination lenth very large, used to truncatecolums = true
+	  6,ENFORCE_LENGTH: tuncatedcolumns and enforce_length both are same,The table defination lenth is exceded, used to truncatecolumns = true
 
         ex:copy into table name
 			from @stage name
 			file_format =(type = csv field_delimiter=','skip_header=1)
-			ENFORCE_LENGTH = TRUE
+			ENFORCE_LENGTH = false
 	  7,PURG:it is used to  load the data (stage to table) after automatically remove the files in stage
 	  ex:copy into table name
 			from @stage name
@@ -313,13 +439,14 @@
         HOW TO WORK ON JSON FORMAT TO TABLE FORMAT
 	-->create external_stage
     -->list the stage
-	-->create  a raw table 
+	-->create  a table  raw table 
 	-->create file format
 	-->copy the data stages to raw table 
 	-->select * from table name 
-	-->extract the data json to table format 
+	-->extract the data json to table format
+	-->load in to another table
     --CREATE EXTERNAL_STAGE--
-    1,CREATE OR REPLACE STAGE RAJEHS
+    1,CREATE OR REPLACE STAGE RAJESH
       S3 URL
 
     2,LIST @STAGE NAME
@@ -358,21 +485,29 @@
        create table hr_data as 
        (
        
-     SELECT RAW_FILE:city :: string as city  ,
+     SELECT RAW_FILE:city :: string as city,
        RAW_FILE:first_name :: string as first_name,
        RAW_FILE:gender :: string as gender,
-       RAW_FILE:job.salary :: int as salary ,
-       RAW_FILE:job. title :: string as title  ,
+       RAW_FILE:job.salary :: int as salary,
+       RAW_FILE:job. title :: string as title,
        RAW_FILE:spoken_languages[0].language :: string as language,
        RAW_FILE:spoken_languages[0].level :: string as level 
 
        from OUR_FIRST_DB.PUBLIC.JSON_RAW
-       )
+       )              
 
     SELECT * FROM CSV_TABLE
 	
-32,HOW TO WORK ON ERROR RECORDS
-
+32,HOW TO WORK WITH ERROR RECORDS
+	-->FIRST CREATE STAGE
+	-->LIST THE STAGE
+	-->CREATE TABLE 
+	-->COPY THE DATA INTO TABLE 
+	-->SHOW ANEY ERROR RECORDS
+	-->CREATE TABLE TABLE NAME 
+	   SELECT REJECTED_RECORDS FROM TABLE (RESULT_SCAN(LAST_QUERY_ID()))
+	-->SPLIT THE ERROR RECORDS LOADED INTO ANOTHER TABLE 
+	-->UPDATE THE ERROR  RECORDS AND INSERT THE DATA
     
 	CREATE OR REPLACE EXTERNAL_STAGE
 	S3 URL
@@ -394,17 +529,12 @@
 	FILE_FORMAT = (TYPE =CSV FIELD_DELIMITER SKIP_HEADER=1)
 	VALIDATION_MODE = RETURN_ERRORS
 	
-	--CREATE REJECTED RECORDS TABLE AND LOAD THE  REJECTED RECORDS
-	CREATE OR REPLACE (REJECTED_RAJESH) AS
+	--CREATE REJECTED RECORDS TABLE AND LOAD THE  REJECTED RECORDS--
+	
+	CREATE OR REPLACE TABLE (REJECTED_RAJESH) AS
 	SELECT REJECTED_RECORDS FROM TABLE (RESULT_SCAN(LAST_QUERY_ID()));
 	
-	--COPY INTO WITHOUT ERROR FILES IN ORDERS TABLE--
 	
-	COPY INTO TALE NAME
-	FROM @EXTERNAL_STAGE NAME
-	FILE_FORMAT =(TYPE=CSV FILE_DELIMITER=','SKIP_HEADER=1)
-	ON_ERRORS = CONTINUE
-	SELECT * FROM REJECTED_RECORD
 	--SPLIT THE ERROR RECORDS AND LOAD THE TABLE--
 
 	CREATE OR RELACE TABLE REJECTED2 AS 
@@ -426,15 +556,17 @@
     --FINALLY LOAD THE DATA INTO ORDERS TABLE 
 
   INSERT INTO ORDERS
-   (SELECT * FROM REJECTED2)  
+   (SELECT * FROM REJECTED2)    
    
    
 33,HOW TO INTEGRATED AWS TO SNOWFLAKE ?
 
 	 --> Create AWS s3 bucket and load the files 
 	 --> Create IAM Roles to access the files in AWS 
+			-->take role arn 
 	 --> Create S3 integration 
-	 --> Describe S3 integration and take the user ARN and External ID 
+	 --> Describe S3 integration 
+	 --> take the user ARN and External ID
 	 --> Modify the trust policy to add the ARN and eternal ID 
 	 --> Create a stage (AWS Url) 
 	 --> list to see how many files are there 
@@ -479,13 +611,7 @@
 	 -->goto storage account select container 
 	 -->create container and upload files
 	 -->go to snowflake account create storage integration
-	 -->CREATE OR REPLACE STORAGE INTEGRATION SATISH_INT
-			TYPE = EXTERNAL_STAGE1
-			STORAGE_PROVIDER = AZURE
-			ENABLED = TRUE
-			AZURE_TENANT_ID ='a256b292-f2df-4178-81cf-37b48d006e4e'(microsoft entra id)
-			STORAGE_ALLOWED_LOCATIONS ='azure://azuretosnowfale.blob.core.windows.net/mastancontainer'
-     --> go to azure account select container right side 3dots click select container 		properties copy url
+     --> go to azure account select container right side 3dots click select container properties copy url
 	 -->select azure account search bar select type microsoft entra id copy id past it 
      -->create storage integration
 	 -->desc stage copy azure_tenent_id go to azure account 
@@ -493,18 +619,25 @@
 	 -->select role storage blob data container click on enter next button
      -->select members 	copy this one sq89bwsnowflakepacint_1733144833390 create or select 
 	 -->copy azure_consent_url https://login.microsoftonline.com/a256b292-f2df-4178-81cf-37b48d006e4e/oauth2/authorize?client_id=278c2e15-a3ed-4b5e-bf1f-dfec9c67b548&response_type=code past new browser enter
-	 -->go to snowfalke create file format 
+	 -->go to snowfalke create file format
+	-->CREATE OR REPLACE STORAGE INTEGRATION SATISH_INT
+			TYPE = EXTERNAL_STAGE1
+			STORAGE_PROVIDER = AZURE
+			ENABLED = TRUE
+			AZURE_TENANT_ID ='a256b292-f2df-4178-81cf-37b48d006e4e'(microsoft entra id)
+			STORAGE_ALLOWED_LOCATIONS ='azure://azuretosnowfale.blob.core.windows.net/mastancontainer'
+			
 	    EX:CREATE OR REPLACE FILE FORMAT AZURE_DATABASE.FILE_FORMAT.CSV_FILE
 			TYPE = CSV
 			FIELD_DELIMITER = ','
 			SKIP_HEADER = 1
 			EMPTY_FIELD_AS_NULL = TRUE
-	 -->create external_stage 
+	-->create external_stage 
 	    EX:CREATE OR REPLACE STAGE AZURE_DATABASE.EXTERNAL_STAGE.STAGE_1
 			URL = 'azure://azuretosnowfale.blob.core.windows.net/mastancontainer'
 			STORAGE_INTEGRATION = SATISH_INT
 			FILE_FORMAT = AZURE_DATABASE.FILE_FORMAT.CSV_FILE
-	  -->create table table name
+	 -->create table table name
 	     EX:CREATE OR REPLACE TABLE AZURE_TABLE1(
 				ID INT,
 				FIRST_NAME VARCHAR(20),
@@ -513,14 +646,11 @@
 				LOCATION VARCHAR(30),
 				DEPARTMENT VARCHAR(30)
 				)
-	  -->copy the data stages to tables
+	 -->copy the data stages to tables
 	      EX:copy into table name
 		     from @stage name
-	  -->select * from table name
+	 -->select * from table name
 33,HOW TO DATA UNLOADING IN SNOWFLAKE TO AWS?
-     --> Create table in snowfalke
-     --> Create AWS s3 bucket  
-	 --> Create IAM Roles to access the files in AWS 
 	 --> Create S3 integration 
 	 --> Describe S3 integration and take the user ARN and External ID 
 	 --> Modify the trust policy to add the ARN and eternal ID 
@@ -557,8 +687,8 @@
 
 
 
-34,what is mean by snowfpipe --> snowpipe means continue dataflow and continue data intigration,AWS,AZURE,GCP cloud bsed flatform TO snowflake
-
+34,what is mean by snowfpipe --> snowpipe means continue dataflow and continue data intigration,without aney manual intervention AWS,AZURE,GCP cloud bsed flatform TO snowflake
+    -->snowpipe is serverless compute model
  
 1. Create AWS s3 bucket and load the files 
 2. Create IAM Roles to access the files in AWS 
@@ -568,11 +698,71 @@
 6. Create a stage (AWS Url) 
 7. list to see how many files are there 
 8. Create a table 
-9. Perform copy to load the data (file foramt , copy options )  to test 
-10. Create a pipe and describe the pipe and configure pipe ARN into s3 properties as SQS
+9. Create a pipe and describe the pipe and configure pipe ARN into s3 properties as SQS
+     -->CREATE OR REPLACE PIPE PIPE_NAME
+		AUTO_INGEST = TRUE
+		AS
+		COPY INTO DBNAME.SCHEMANAME.TABLENAME FROM @EXTERNAL_STAGE_NAME;
+		
+		
+	EX:CREATE OR REPLACE STORAGE INTEGRATION S3_INT
+	        TYPE = EXTERNAL_STAGE
+			ENABLED = TRUE
+			STORAGE_PROVIDER = S3
+			STORAGE_AWS_ROLE_ARN = 'arn:aws:iam::891377211308:role/vivision-s3-nov-access'
+			STORAGE_ALLOWED_LOCATIONS = ('s3://rajesh-snowpipe/csv/')
+			
+		    DESC STORAGE INTEGRATION S3_INT
+			
+			CREATE OR REPLACE FILE_FORMAT RAJESH_FORMAT
+			TYPE = CSV
+			FIELD_DELIMITER =','
+			SKIP_HEADER = 1
+			
+			
+			CREATE OR REPLACE STAGE RAJESH_STAGE
+			URL = 's3://rajesh-snowpipe/csv/'
+			STORAGE_INTEGRATION = S3_INT
+			FILE_FORMAT = RAJESH_FILE
+			
+			LIST @RAJESH_STAGE
+			
+			CREATE OR REPLACE TABLE RAJESH1(
+			ID NUMBER,
+			FIRST_NAME VARCHAR(30),
+			LAST_NAME VARCHAR(30),
+			EMAIL STRING,
+			LOCATION VARCHAR(30),
+			DEPARTMENT VARCHAR(50)
+			)
+
+
+			CREATE OR REPLACE PIPE RAJESH_PIPE
+			AUTO_INGEST = TRUE
+			AS
+			COPY INTO TEST1
+			FROM @EXTERNAL_STAGE
+			
+			DESC PIPE RAJESH_PIPE --TAKE ARN
+			-->goto s3 select bucket select properties 
+			-->create event notification
+			-->event name =rajesh
+			-->prefix = snowpipe
+			-->select all object create events
+			-->select SQS queue
+			-->select Enter SQS queue ARN
+			-->finally past pipe url
+			
+			ALTER PIPE RAJESH_PIPE REFRESH
+			
+			SELECT * FROM TEST1
+			
+		
 11. Resume/pause refresh a pipe  
 
 35,WHAT IS MEAN BY TIME_TRAVEL -->we can retrive the data particular period of time,point in time recovery,in order to get histarical data (ex:by default data delete or modify we can use to retrive the data)
+-->it is only available for enterpice edition 
+
 
 36,HOW MANY WAYS WE CAN RETRIEVE THE DATA -->There are 3 ways we can retrive the histarical data,
          -->types of werehose editions and retention period
@@ -588,20 +778,21 @@
 		 
 -->offset-->it is used to retrive the data just 1,2 minutes back data only
 		    
-		 ex:create or replace table-name
-		    (
-		    select * from(table-name) at (offset => -60*1.5)
+		 ex:CREATE OR REPLACE TABLE EMP_BACKUP1 AS 
+			(
+			SELECT * FROM EMPLOYEES AT(OFFSET =>-60*2.5));
+			
 -->queryid --> it is used to retrive the data with query id
-		 create or replace table table-name (
-		 ex:select * form (table-name) before (statement => ueryid))
-		 
+		 EX:CREATE OR REPLACE TABLE EMP_BACKUP2 AS 
+		    (
+            SELECT * FROM EMPLOYEES BEFORE(statement => '01b99c75-010b-e66d-000a-b47700029ada'));
+
 -->timestamp-->it is used to retrive the data particular period of time (use time)
-		 ex: create or replace table-name
-		     (
-			 select * from table-name before (timestamp => date,time ::timestamp))
+		 ex:CREATE OR REPLACE TABLE EMP_BACKUP3 AS (
+		 
+			SELECT * FROM EMPLOYEES BEFORE(TIMESTAMP => '2025-01-10 05:18:57.579'::TIMESTAMP));
 
-
-37,TYPES OF TABLES ;There are 3 types of tables in snowflake
+37,TYPES OF TABLES IN SNOWFLAKE	 ;There are 3 types of tables in snowflake
                      
 		-->permanent table
 		    -->Default table in snowflake
@@ -637,14 +828,30 @@
 			-->we can take multiple copies of data,with no aditional cost that means "zero copy clone"
 			-->the cloned objects is independent from original
 			-->works with time travel also available
-			(create or replace table source tablename
-			       clone destination table name)
+			EX: CREATE OR REPLACE TABLE NEW TABLE NAME
+				CLONE
+				OLD TABLE NAME  
+39,WHAT IS MEAN BY SWAPING IN SNOWFLAKE: 
+			-->swaping is narthing but interchange the data 
+			-->swaping is very fast and efficient 
+			-->quickly reverting to previous version of table 
+			ex:ALTER TABLE TABLE NAME
+			   SWAP WITH 
+			   TABLE NAME
 			
 39,WHAT IS MEAN BY WORKING WITH TASK:
             -->we can schedule the task particular period of time execute the task
 			-->we can schedule sql queries and store procedure 
 			-->root task also created 
-			-->child task also created 
+			-->child task also created
+			-->CRON FIELDS:
+					-->MINUTES
+					-->HOURS
+					-->DATE
+					-->MONTH 
+					-->DAY OF THE WEAK (0 SUN,1 MON,2 TUE,3 WED,4 THU,5 FRI 6 SAT)					
+			
+	-----------------CREATE TABLE-----------------------------
 			ex:CREATE TABLE TASK_TABLE
 				(
 				ID INT AUTOINCREMENT START -1   INCREMENT -1,
@@ -654,30 +861,141 @@
 
 				SELECT * FROM TASK_TABLE
 
-				----------------CREATE TASK--------------------
+	----------------CREATE TASK--------------------
 
 				CREATE OR REPLACE TASK TASK_1
 				 WAREHOUSE =COMPUTE_WH
 				 SCHEDULE = '1 MINUTE'
 				 AS 
-				 INSERT INTO  TASK_TABLE(LOAD_TIME)
+				 INSERT INTO TASK_TABLE(LOAD_TIME)
 				 VALUES(CURRENT_TIMESTAMP);
+				 
+				 ALTER TASK TASK_NAME RESUME;
+				 SELECT * FROM TABLE 
+	----------------CREATE DAG----------------------------	 
+				CREATE OR REPLACE TABLE RAJESH_TABLE2(
+				ID INT AUTOINCREMENT START=1 INCREMENT=1,
+				NAME VARCHAR(20) DEFAULT'RAJESH',
+				LOAD_TIME TIMESTAMP
+				)
+
+				CREATE OR REPLACE TASK SATISH_TASK
+				WAREHOUSE = COMPUTE_WH
+				SCHEDULE ='1 MINUTE'
+				AS
+				INSERT INTO RAJESH_TABLE2(LOAD_TIME) VALUES (CURRENT_TIMESTAMP)
+
+	------------------------CREATE CHILDTASK--------------------------------
+				CREATE OR REPLACE TASK SATISH_TASK1
+				WAREHOUSE = COMPUTE_WH
+				AFTER SATISH_TASK
+				AS
+				CREATE OR REPLACE TABLE SATISH_TEMP1
+				AS 
+				SELECT * FROM RAJESH_TABLE2
+
+	-------------------------------------------------------------------------
+				CREATE OR REPLACE TASK SATISH_TASK2
+				WAREHOUSE = COMPUTE_WH
+				AFTER SATISH_TASK
+				AS
+				CREATE OR REPLACE TABLE SATISH_TEMP2
+				AS
+				SELECT * FROM SATISH_TEMP1
+
+				ALTER TASK SATISH_TASK2 RESUME;
+				ALTER TASK SATISH_TASK1 RESUME
+				ALTER TASK SATISH_TASK RESUME 
+
+				ALTER TASK SATISH_TASK  SUSPEND
+				ALTER TASK SATISH_TASK1 SUSPEND
+				ALTER TASK SATISH_TASK2 SUSPEND
+
+				SELECT * FROM RAJESH_TABLE2
+				SELECT * FROM SATISH_TEMP1
+				SELECT * FROM SATISH_TEMP2
+				SHOW TASKS
+				 
+39,IF THE TASK IS NOT RUNNING HOW TO TROUBLESHOOT?
+		-->verify the task status,it should be like start,if it is in suspend state,resume it by using alter command
+		-->check the task history and check execution state,if it is failed state,take the query id and check the failure reason 
+		-->verify the permission granted to the task owner,owner should have access to the database,schema,tables and warehouse
+		-->verify the condition (only for streams) 
 				 
 40,WHAT IS MEAN BY STREAMS IN SNOWFLAKE:
 		-->In Snowflake, a stream is used to track changes to data in a table
-		-->CDC means continue data capture
+		-->CDC means change data capture
         -->there are 3 types of snowflake streams
-		1,STANDARD STREAMS::a standard stream track all DML changes,insert,update,delete (including table truncate )    
-		 (ex;CREATE STREAM STREAM NAME ON TABLE NAME 
+		1,STANDARD STREAMS:a standard stream track all DML changes,insert,update,delete (including table truncate )    
+		 (ex;CREATE STREAM STREAM NAME 
+			 ON TABLE NAME 
 		 
-		2,APPEND-ONLY  STREAMS::
+		2,APPEND-ONLY  STREAMS:
 		    -->Tracks only inserted rows.
-			-->Changes from updates or deletes will not appear in this stream
+			-->Changes from updates or delete will not appear in this stream
 		  (ex:CREATE OR REPLACE STREAM STREAM NAME ON TABLE TABLE NAME 
 		          APPEND_ONLY = TRUE
-		3,INSERT-ONLY STREAMS::supported only external tables only,insert row only,they do not record delete operations
+		3,INSERT-ONLY STREAMS: supported only external tables only,insert row only,they do not record delete operations
 		   (EX:CREATE OR REPLACE STREAM STREAM NAME ON TABLE TABLE NAME
 		        INSERT_ONLY = TRUE
+
+
+				----------------CREATE SOURCE TABLE----------------------
+
+			EX:	CREATE OR REPLACE TABLE RAJESH_TABLE1(
+				ID INT,
+				FIRST_NAME VARCHAR(20),
+				LAST_NAME VARCHAR(20),
+				SALARY INT 
+				);
+
+				----------------INSERT THE DATA IN SOURCE TABLE-------------
+				INSERT INTO RAJESH_TABLE1(ID,FIRST_NAME,LAST_NAME,SALARY) VALUES
+				(100,'RAJESH','MANDADI',10000),
+				(101,'SATISH','MANDADI',20000),
+				(102,'MASTAN','ARCAT',30000)
+
+				-----------------CREATE STREAM FOR SOURCE TABLE--------------------
+
+				CREATE OR REPLACE STREAM RAJESH_STREAM 
+				ON 
+				TABLE RAJESH_TABLE1
+
+
+				-----------------CREATE TARGET TABLE ----------------------------
+				CREATE OR REPLACE TABLE RAJESH_TABLE2(
+				ID INT,
+				FIRST_NAME VARCHAR(20),
+				LAST_NAME VARCHAR(20),
+				SALARY INT 
+				);
+				--------------CREATE TASK---------------------
+				CREATE OR REPLACE TASK RAJESH_TASK
+				WAREHOUSE = COMPUTE_WH
+				SCHEDULE = '1 MINUTE'
+				AS 
+				INSERT INTO RAJESH_TABLE2
+				SELECT ID,
+					   FIRST_NAME,
+					   LAST_NAME,
+					   SALARY
+					   FROM RAJESH_STREAM
+					   
+				ALTER TASK RAJESH_TASK RESUME;
+
+				SELECT * FROM RAJESH_TABLE1
+
+				SELECT * FROM RAJESH_STREAM
+
+				SELECT * FROM RAJESH_TABLE2
+
+				---------------------UPDATE THE RECORDS---------------------
+				UPDATE  RAJESH_TABLE1
+				SET FIRST_NAME = 'RAJESH'
+				WHERE ID = 100
+
+				DELETE FROM RAJESH_TABLE1
+				WHERE ID = 100
 				
 				
 41,DATA SHARING IN SNOWFLAKE;
@@ -686,9 +1004,11 @@
 			-->with in the region and another region also data sharing is posible
 			-->in snowflake users data sharing directly create shared object
 			-->for non-snowflake users,create reader account share the data
-			-->single share object multiple consumeres share the data
+			-->single share object multiple consumeres share the data					
     THIS IS SOURCE ACCOUNT:
             EX:CREATE OR REPLACE DATABASE DATA_SHARING
+			
+			
 			CREATE OR REPLACE STAGE EXTERNAL_STAGE
 			url='s3://bucketsnowflakes3';
 
@@ -748,19 +1068,23 @@
 
 					// How to share complete database
 					GRANT SELECT ON ALL TABLES IN DATABASE CUST_DB TO SHARE CUST_DATA_SHARE;
-
+					
+41,WHAT IS MEAN BY READER ACCOUNTS IN SNOWFLAKE?
+			-->It means you can caccess the data from non snowflake users
+			-->create reader account it gives one url and you set username and passwd 
+			-->you can give this credentials to consumers and access the data
 
 42,WHAT IS MEAN BY ACCESS CONTROL IN SNOWFLAKE?
 		
 		-->access control determine who can access the database object and perform operations on specific object in snowfalke
-43,TYPES OF ROLES IN SNOWFLAKE :-->there are 2 types of roles 
-		-->system defined role
-		-->custom role
+
 		
 44,WHAT IS MEAN BY DATAMASKING IN SNOWFLAKE?
-        -->Data masking in Snowflake is a security feature that protects sensitive data by obscuring or transforming it for users who lack the necessary permissions. It allows organizations to control access to sensitive information while enabling authorized users to view the data in its original form.
+		-->snowfalke supports using Dynamic Data Masking on columns of tables and views. We can partially mask the data or fully mask the data from un-authorized users.
+		-->Same masking policy can be applied on multiple colums 
+		-->mostly masking policy applied based on the roles			
 		
-		EX:CREATE OR REPLACE TABLE RAJESH(
+		EX:CREATE OR REPLACE TABLE RAJESH( 
 				ID INT,
 				NAME VARCHAR,
 				PHONE VARCHAR,
@@ -785,7 +1109,8 @@
 
 				GRANT ROLE RAJESH_MASK TO USER NAIDU;
 				GRANT ROLE RAJESH_FULL TO USER NAIDU;
-
+				
+---------------ONLY LEFT SIDE 2 VALUES VISIBLE--------------------
 				CREATE OR REPLACE MASKING POLICY NAME
 				AS (VAL VARCHAR) RETURNS VARCHAR ->
 				 CASE
@@ -800,13 +1125,14 @@
 				ALTER TABLE IF EXISTS RAJESH MODIFY COLUMN EMAIL
 				UNSET MASKING POLICY
 
-
-				CREATE OR REPLACE MASKING POLICY NAME
+----------------FULLY MASK THE DATA -----------------------------
+				CREATE OR REPLACE MASKING POLICY RAJESH_POLICY
 				AS (VAL VARCHAR) RETURNS VARCHAR ->
-				 CASE
-				   WHEN CURRENT_ROLE ()IN ('RAJESH_FULL','ACCOUNTADMIN') THEN VAL
-				   ELSE CONCAT(LEFT(VAL,2),'###-###-####')
-				   END;
+				CASE
+				WHEN CURRENT_ROLE()IN('RAJESH_ROLE')THEN VAL
+				ELSE '###-###-####')
+				END;
+
 
 				ALTER TABLE IF EXISTS RAJESH MODIFY COLUMN NAME
 				SET MASKING POLICY NAME
@@ -814,22 +1140,29 @@
 
 				ALTER TABLE IF EXISTS RAJESH MODIFY COLUMN EMAIL
 				UNSET MASKING POLICY
+------------------ONLY RIGHT SIDE VALUES 2 VISIBLE--------------------
+				CREATE OR REPLACE MASKING POLICY RAJESH_POLICY
+				AS (VAL VARCHAR) RETURNS VARCHAR ->
+				CASE
+				WHEN CURRENT_ROLE()IN('RAJESH_ROLE')THEN VAL
+				ELSE CONCAT('###-###-####',RIGHT(VAL,2))
+				END;
 
 45,WHAT IS MEAN BY VIEWS?HOW MANY TYPES OF VIEWS?
-		-->A view is a database object that contain sql query built over one or multiple table
+		-->A view is a database object that contain sql query built over one or multiple tables
 		
 	-->there are 3 types of views 
        1,NORMAL VIEWS
+	     -->normal views allows aney one can see the definaion of the views 
 	     -->can create single table or multiple tables
 		 -->it can support filters,joins,subqueries
-		 -->then query contain multiple tables 
 		 -->the query is simple
 		 -->the results of the change often
 		 ex: create or replace view view name
 		     as
-			 select * from employees
+			 select * from employees         
 	   2,SECURE VIEWS 
-	     -->A secure view does not allow users see the definaton of the views
+	     -->A secure view does not allow un-authorized users see the defination of the views
 		 -->user can't see the underlying sql query
 		 -->the defination of a secure view is only exposed to authorized views
 		 -->2 advantages of secure views
@@ -839,11 +1172,11 @@
 				    as 
 					select * from table name
 	   3,MATERIALIZED VIEWS
-	     -->when materialized views on work with complex query,aney aggrigations 
+	     -->when materialized views on work with complex query,aney aggrigations
 	     -->a materialized views store pre-compute result set
-		 -->can create single table only,can't build on multiple table
+		 -->can create single table only,can't built on multiple table
 		 -->querying a materialized views gives better performance than querying base table
-		 -->improve the performance 
+		 -->improve the performance   
 		 -->no need of additional maintainence auto refresh of result
 		 -->does not support joins,including self joins
 		 -->does not support aggrigate functions and windows functions
@@ -906,9 +1239,169 @@
 		-->6x-large 512credit/hour
 	2,storage cost:                                      
 	   -->monthly storage fees 
-	   -->based on average storage used per month
+	   -->average storage used per month
 	   -->cost calculated after compression
 	   -->cloud provider
-	   
-	   
-                                           
+
+50,WHAT IS THE DIFFERENCE BETWEEN SCALEUP AND SCALEOUT?
+ANS, SCALEUP: -->it means increase the the wherehouse size
+			  -->present wherehouse size is 'small' increase the size to 'large'
+			 
+              EX:ALTER WAREHOUSE WAREHOUSE NAME SET WAREHOUSE_SIZE = 'LARGE'
+			  
+	 SCALEOUT:-->increase the number of clusters to avoid a queries going into queues 
+	          
+			  EX:ALTER WAREHOUSE WAREHOUSE NAME SET MAX_CLUSTER_COUNT=8, MIN_CLUSTER_COUNT =2,
+			  
+51,TYPES OF CACHES IN SNOWFLAKE?
+	--->There are two types of caches available in snowflake
+	    1,RESULT CACHE -->result cache located in the cloud service layer and it can hold the results for next 
+				24hours if try to run the same query with in  24hours it will fetch the results very fast
+				
+				
+		2,LOCAL DISK CACHE -->local disk cache located in the virtula warehouse. hear the data will be available for the virtual warehouse up and running.whenever the virtual warehouse is suspend the localdisk cache cleared
+		
+52,NVL:-->The NVL functions is used to replace the null values
+	   -->NVL take 2  parameter 
+	   -->first parameters is NULL it will take second paremeter
+	   -->first parameter is NOTNULL  it will take the first value
+	   EX:SELECT NVL(NULL, 'Default Value');  
+	      -->OUTPUT: 'Default Value'
+		  
+		  SELECT NVL('Hello', 'Default Value');  
+		  -->OUTPUT 'Hello'
+
+   NVL2:-->The NVL2 function is more advanced.
+		-->NVL2  take 3 parameters	
+		-->First parameter is NULL it will take third parameter
+		-->first parameter is NOTNULL it will take second parameter	
+		EX:SELECT NVL2(NULL, 'Not Null', 'Is Null');  
+		   OUTPUT:'Is Null'
+			
+		   SELECT NVL2('Hello', 'Not Null', 'Is Null');
+		   OUTPUT:'Not Null'
+		   
+		   
+53,COALESCE -->Returns the first non-NULL value.
+			-->If all expressions are NULL, it returns NULL.
+			EX:SELECT COALESCE (NULL,NULL,'RAJESH')
+						OUTPUT: Rajesh
+						
+53,IN SINGLE TABLE HOW MANY PRIMARY KEYS CAN CREATE -->ONLY ONE KEY
+
+54, HOW TO FINDOUT SNOWFLKAE VERSION --> SELECT CURRENT_VERSION()
+
+55,HOW TO CALL UDF -->SELECT FUNC_NUM();	
+
+56,HOW TO CALL PROCEDURE --> CALL PROCEDURE_NAME();
+
+57,HOW TO CHECK UDF -->SHOW USER FUNCTIONS
+
+58,SNOWPIPE CAN CREATE INTERNAL_STAGE --> YES WE CAN CREATE 
+
+59,IN TRUNCATE IS DML OR DDL IN SNOWFLAKE --> DML
+
+60,CAN WE CLONE EXTERNAL_TABLES -->NO
+
+61,WHAT ARE THE METADATA FIELDS-->1,METADATA$ACTION -->INSERT ,DELETE
+								  2,METADATA$ISUPDATE -->UPDATE
+								  3,METADATA$ROW_ID -->ARN
+								  
+62,CAN WE CREATE MULTIPLE STREAMS IN SINGLE TABLE -->YES WE CAN CREATE  
+
+63,CAN WE ACCESS  TIME TRAVEL ON EXTERNAL TABLES -->NO
+ 
+64,HOW MANY WAYS WE CAN LOGIN TO SNOWFLAKE-->1,SNOWSIGHT -->snowsight is a latest web console,next genaration ui
+											 2,SNOWSQL
+											 3,CLASSIC CONSOLE
+65,WHICH METHODOLOGY YOU ARE FALLOWING -->AGILE METHODOLOGY,WATER FALL METHODOLOGY
+
+66,WHICH TICKTING TOOLS YOU ARE USING -->1,SERVICE NOW
+									  -->2,JIRA
+									  -->3,AZURE DEVOPS
+									  -->4,MONDAY.COM
+									  
+67,HOW TO SEE MY DATABASE -->SELECT CURRENT_DATABASE();
+
+68,HOW TO FIND THE CLOUD -->SELECT CURRENT_REGION();
+
+69,HOW TO FIND THE CURRENT_USER -->SELECT CURRENT_USER();
+
+70,HOW TO FIND THE CURRENT_ROLE -->SELECT CURRENT_ROLE();
+71,HOW TO FIND THE WAREHOUSE -->SELECT CURRENT_WAREHOUSE();
+
+72,HOW TO REMOVE THE FILES IN SNOWFLAKE STAGES -->Rm@stage name
+
+73,CAN WE CLONE THE STREAMS --> YES
+
+74,SCD TYPES IN SNOWFLAKE--> SCD MEANS SLOWLY CHANGING DIMENSION
+				-->Type 0	-->No changes allowed	after initial insert
+				-->Type 1	-->it will not keep history record
+				-->Type 2	-->it will keep the history records and present records
+				-->Type 3	-->Limited history in columns Tracking only the last change 
+				-->Type 4	-->Main table keep current data
+							-->History table store all changes
+
+75,HOW DATA STORED IN SNOWFLAKE -->DATA WILL BE STORED IN MICRO PARTITIONS COLUMNAR FORMAT
+
+76,WHAT  ARE MATERIALIZATION AND ITS TYPES?
+ANS,-->MATERIALIZATION ARE STRATAGIES FOR PRESENTING DBT MODELS IN WAREHOUSE 
+    -->TYPE VIEW,TABLES,INCREMENTAL,SNAPSHOT,EPHEMERAL
+
+77,WHAT IS THE DEFAULT MATERIALIZATION IN DBT?
+    -->VIEW
+	
+78,GET 4 HIGHEST SALARY FROM EMPLOYEE TABLE?
+ANS,SELECT SALARY
+	FROM(
+	SELECT SALARY,DENSE_RANK() OVER (ORDER BY SALARY DESC) AS DRANK
+		   FROM EMPLOYEES)
+		   WHERE DRANK = 4
+
+79,TABLE A HAS 100 RECORDS TABLE B HAS 0 RECORDS ?WHAT IS THE RESULT OF THE QUERY ?
+ANS, 0 RECORDS
+
+80,WHAT IS MEAN BY SNOWSIGHT -->Snowflake launched the next genaration UI
+
+81,CHECK NULL VALUES IN SALARY FROM EMPLOYEE TABLE -->SELECT * FROM EMPLOYEES WHERE SALARY IS NULL
+
+82,HOW TO FIND THE SALARY DEPARTMENT WISE-->SELECT DEPARTMENT_ID,SUM(SALARY)FROM EMPLOYEES
+											GROUP BY DEPARTMENT_ID
+83,FIND THE DEPARTMENT -->SELECT DEPARTMENT_ID,COUNT(*) FROM EMPLOYEES
+						  GROUP BY DEPARTMENT_ID
+
+84,UNIQUE KEY-->it contain the unique values,it allow null values 
+			 -->can have multiple unique keys in single table
+			 
+85,PRIMARY KEY -->It contain the unique records,it cant allow duplicate and null values
+			   -->only one primary key for table
+			   
+			   
+86,FOREGIN KEY -->It allows duplicate  and nulls 
+			   -->can have multiple foregin key in single table 
+			   
+87,COALESCE -->Returns the first non-NULL value.
+			-->If all expressions are NULL, it returns NULL.
+			EX:SELECT COALESCE (NULL,NULL,'RAJESH')
+						OUTPUT: Rajesh
+88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
+
+
+---------------------------project details-------------------------------------
+-->Melbourne Water uses Snowflake to predict recycled water quality up to two days in advance with 75% accuracy.
+-->This allows proactive adjustments to treatment processes, improving efficiency and compliance.
+-->Snowflake, integrated with AWS services, as a centralized data platform for Melbourne Water.
+-->It consolidates data from sensors,laboratory reports,and weather forecasts for better decision-making.
+-->A virtual model of the recycled water system was developed using real-time data and machine learning.
+
+-->This digital helps identify factors affecting water quality and optimizes operations accordingly.
+-->Snowflake's cloud-based architecture allows Melbourne Water to scale storage and computing power as needed.
+-->The platform supports efficient data sharing and collaboration across teams.
+-->Snowflake ensures secure data access 
+-->Role-based access controls help protect sensitive information.
+	
+		
+
+
+
+
