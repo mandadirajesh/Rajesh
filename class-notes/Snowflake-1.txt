@@ -1388,13 +1388,4 @@ ANS, 0 RECORDS
 						OUTPUT: Rajesh
 88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
-<<<<<<< HEAD
-
-
-		
-
-
-
-
-=======
->>>>>>> 3a3c6b2 (third)
+abcdefg
