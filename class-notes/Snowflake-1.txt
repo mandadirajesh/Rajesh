@@ -222,6 +222,8 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 				
 		-->CONCAT: The CONCAT function in Snowflake is used to combine multiple string values into a single string.
 				ex:SELECT CONCAT(COUNTRY_ID, ',', COUNTRY_NAME) AS FULL_NAME FROM COUNTRIES
+				EX;SELECT FIRST_NAME|| ' ' ||LAST_NAME AS FULL_NAME FROM EMPLOYEES
+
 				OUTPUT:Steven King
 					   Neena Kochhar
 					   Lex De Haan
@@ -1386,6 +1388,7 @@ ANS, 0 RECORDS
 						OUTPUT: Rajesh
 88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
+<<<<<<< HEAD
 
 
 		
@@ -1393,3 +1396,5 @@ ANS, 0 RECORDS
 
 
 
+=======
+>>>>>>> 3a3c6b2 (third)
