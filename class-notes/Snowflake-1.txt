@@ -188,9 +188,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		        EX:select first_name, count(*) from employees
 				   group by first_name
 				   having count(first_name) > 1
-		-->LIKE : like operator is used to search for specific pattern colum
-				EX:SELECT * FROM EMPLOYEES
-                   WHERE FIRST_NAME LIKE 'A%'
+
 				   
 
 		-->GROUP_BY: The GROUP BY clause in SQL is used to group rows that have the same values in 	specified  columns in summary rows
@@ -206,7 +204,17 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		-->WHERE: it filter the records particular rows used to where condition
 					EX:select * from employees
 					   where employee_id = 100
-		-->BETWEEN:it is used to filter the specific range of records			   
+	
+6,SPECIL OPERATORS: 
+		-->BETWEEN:it is used to filter the specific range of records
+		
+		-->LIKE : like operator is used to search for specific pattern colum
+				EX:SELECT * FROM EMPLOYEES
+                   WHERE FIRST_NAME LIKE 'A%'
+				   
+		-->IN: list of values
+		
+		-->IS NULL:
 7,AGGRIGATE FUNCTIONS :
 		-->AVG:Calculates the average (mean) of numeric values in a column.
 				EX:SELECT AVG(SALARY) FROM EMPLOYEES
@@ -1388,4 +1396,4 @@ ANS, 0 RECORDS
 						OUTPUT: Rajesh
 88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
-abcdefg
+
