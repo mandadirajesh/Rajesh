@@ -52,9 +52,12 @@
 	    b,ROLLBACK: It is used to revert the previuos transactions before commit operations
 
  		
-5,what is mean by database -->It is a collection of data     	{strecture(table,format),semi-strecture(json,xmlf),un-strecture}
+5,what is mean by database -->It is a collection of data{strecture(table,format),semi-strecture(json,xmlf),un-strecture}
+
+
 6,what is mean by data warehouse --> we are using to store the data but the purpose is different, 
-                            --> historical data and analytical solution (large voulume of data)  
+                            --> historical data and analytical solution (large voulume of data)
+							
 6,what is mean by virtual warehouse -->it means inside the server 
 	    create warehouse: 	CREATE WAREHOUSE my_warehouse
 							WITH WAREHOUSE_SIZE = XSMALL
@@ -64,7 +67,9 @@
 
   							
 7,data types --> INT/NUMBER,CHAR/VARCHAR/STRING(num,char), DATE/DECIMAL
+
 8,What is mean by count(*)-->it display the all rows in table
+
 9,what is mean by count(colum-name) -->it is used to excepted null values in a table
 
 10,types of database-->MYSQL,ORACLE,DYNAMO-DB,MANGO-DB,POSTGRACE_SQL,HANA
@@ -215,6 +220,9 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		-->IN: list of values
 		
 		-->IS NULL:
+6,ARTHAMATIC OPERATORS: -,+,*
+6,RELATIONAL OPERATORS:<,>,<=,>=
+
 7,AGGRIGATE FUNCTIONS :
 		-->AVG:Calculates the average (mean) of numeric values in a column.
 				EX:SELECT AVG(SALARY) FROM EMPLOYEES
@@ -300,6 +308,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		(N number of rows and N number of colums)cros multification 3*3 =9
 		              EX: SELECT * FROM EMPLOYEES
 						  CROSS JOIN JOBS
+18,CONSTIRANTS IN SQL; constraints  are nothing but  a business rule you can apply the business rules at the time of table creation it can only accept valid data						  
 19,what is the difference between traditional warehouse and and snowflake
                   traditional WH                                snowflake
 1,scalability ->scaling can be difficult and          ->it can easily enabiling scaling up and 
@@ -397,7 +406,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 29,COPY COMMAND: It is used to load the data stages to tables(INTERNAL/EXTERNAL) 
 30,COPY OPTIONS:
 	-->VALIDATION_MODE:
-	   1,RETURN_ERRORS:it return error rows only, 
+	   1,RETURN_ERRORS:it return error records  only, 
 	   (ex: copy into table name
 	   from @stage name
 	   file_format =(type =csv field_delimiter=','skip_header=1)
@@ -637,7 +646,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 			AZURE_TENANT_ID ='a256b292-f2df-4178-81cf-37b48d006e4e'(microsoft entra id)
 			STORAGE_ALLOWED_LOCATIONS ='azure://azuretosnowfale.blob.core.windows.net/mastancontainer'
 			
-	    EX:CREATE OR REPLACE FILE FORMAT AZURE_DATABASE.FILE_FORMAT.CSV_FILE
+	    EX: CREATE OR REPLACE FILE FORMAT AZURE_DATABASE.FILE_FORMAT.CSV_FILE
 			TYPE = CSV
 			FIELD_DELIMITER = ','
 			SKIP_HEADER = 1
@@ -843,12 +852,12 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 				OLD TABLE NAME  
 39,WHAT IS MEAN BY SWAPING IN SNOWFLAKE: 
 			-->swaping is narthing but interchange the data 
-			-->swaping is very fast and efficient 
+			-->swaping is very fast and efficient                    
 			-->quickly reverting to previous version of table 
 			ex:ALTER TABLE TABLE NAME
 			   SWAP WITH 
 			   TABLE NAME
-			
+			                                               
 39,WHAT IS MEAN BY WORKING WITH TASK:
             -->we can schedule the task particular period of time execute the task
 			-->we can schedule sql queries and store procedure 
@@ -930,7 +939,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		-->verify the task status,it should be like start,if it is in suspend state,resume it by using alter command
 		-->check the task history and check execution state,if it is failed state,take the query id and check the failure reason 
 		-->verify the permission granted to the task owner,owner should have access to the database,schema,tables and warehouse
-		-->verify the condition (only for streams) 
+		-->verify the condition (only for streams)
 				 
 40,WHAT IS MEAN BY STREAMS IN SNOWFLAKE:
 		-->In Snowflake, a stream is used to track changes to data in a table
@@ -1080,7 +1089,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 					GRANT SELECT ON ALL TABLES IN DATABASE CUST_DB TO SHARE CUST_DATA_SHARE;
 					
 41,WHAT IS MEAN BY READER ACCOUNTS IN SNOWFLAKE?
-			-->It means you can caccess the data from non snowflake users
+			-->It means you can share the data from non snowflake users
 			-->create reader account it gives one url and you set username and passwd 
 			-->you can give this credentials to consumers and access the data
 
@@ -1171,7 +1180,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		 ex: create or replace view view name
 		     as
 			 select * from employees         
-	   2,SECURE VIEWS 
+	   2,SECURE VIEWS                
 	     -->A secure view does not allow un-authorized users see the defination of the views
 		 -->user can't see the underlying sql query
 		 -->the defination of a secure view is only exposed to authorized views
@@ -1180,7 +1189,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 			 -->i dont want the users to see underlying table present in the database 
 			    ex;create or replace secure view view name
 				    as 
-					select * from table name
+				   select * from table name
 	   3,MATERIALIZED VIEWS
 	     -->when materialized views on work with complex query,aney aggrigations
 	     -->a materialized views store pre-compute result set
@@ -1348,7 +1357,7 @@ ANS, SCALEUP: -->it means increase the the wherehouse size
 				-->Type 0	-->No changes allowed	after initial insert
 				-->Type 1	-->it will not keep history record
 				-->Type 2	-->it will keep the history records and present records
-				-->Type 3	-->Limited history in columns Tracking only the last change 
+				-->Type 3	-->it will maintain Limited history Tracking only the last change 
 				-->Type 4	-->Main table keep current data
 							-->History table store all changes
 
@@ -1377,6 +1386,7 @@ ANS, 0 RECORDS
 
 82,HOW TO FIND THE SALARY DEPARTMENT WISE-->SELECT DEPARTMENT_ID,SUM(SALARY)FROM EMPLOYEES
 											GROUP BY DEPARTMENT_ID
+											
 83,FIND THE DEPARTMENT -->SELECT DEPARTMENT_ID,COUNT(*) FROM EMPLOYEES
 						  GROUP BY DEPARTMENT_ID
 
@@ -1390,10 +1400,6 @@ ANS, 0 RECORDS
 86,FOREGIN KEY -->It allows duplicate  and nulls 
 			   -->can have multiple foregin key in single table 
 			   
-87,COALESCE -->Returns the first non-NULL value.
-			-->If all expressions are NULL, it returns NULL.
-			EX:SELECT COALESCE (NULL,NULL,'RAJESH')
-						OUTPUT: Rajesh
-88,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
+87,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
 
