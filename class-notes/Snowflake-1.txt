@@ -308,7 +308,38 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		(N number of rows and N number of colums)cros multification 3*3 =9
 		              EX: SELECT * FROM EMPLOYEES
 						  CROSS JOIN JOBS
-18,CONSTIRANTS IN SQL; constraints  are nothing but  a business rule you can apply the business rules at the time of table creation it can only accept valid data						  
+18,CONSTIRANTS IN SQL; constraints  are nothing but  a business rule you can apply the business rules at the time of table creation it can only accept valid data into the table 
+
+		-->UNIQUE KEY :it contain the unique values,it allow null values 
+						can have multiple unique keys in single table
+			 
+		-->PRIMARY KEY :It contain the unique records in the table ,it cant allow duplicate and null values
+						-->only one primary key for table
+			   
+			   
+		-->FOREGIN KEY :It allows duplicate  and nulls 
+						can have multiple foregin key in single table
+						
+		-->NOT NULL :it allow duplicates,but not allow null values 
+		
+		-->DEFAULT:
+		
+
+-----------------------PLSQL----------------------------------------
+
+1,SEQUENCE:A sequence in SQL is a database object that generates a unique numerical value, typically used for auto-incrementing primary keys in tables.
+
+
+			EX:CREATE SEQUENCE SEQ_NAME
+			   START WITH 1
+			   INCREMENT BY 1
+			   MAXVALUE 100
+			   
+2,SYNONYM: Synonym is used to create  a permanent alias names in tables
+
+			   
+
+					  
 19,what is the difference between traditional warehouse and and snowflake
                   traditional WH                                snowflake
 1,scalability ->scaling can be difficult and          ->it can easily enabiling scaling up and 
@@ -338,7 +369,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 	c,cloud service:   -->collection of service that cordinate activities across snowflake
 					   -->This is  the brain of the snowflake
 					   -->Authentication and access control layer
-					   -->infracture management 
+					   -->infrastracture management 
 					   -->metadata management
 					   -->security
 21,NEW REPO	-->GIT COMMAND
@@ -348,7 +379,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
     -->git branch -M main
     -->git remote add origin git@github.com:rajeshmandadi/SQL-PRACTICE-.git
     -->git push -u origin main
-22,OLD REPO    -->GIT COMMANDS
+22,OLD REPO -->GIT COMMANDS
 	-->git add
 	-->git commit "first_commit"
     -->git push -u origin main
@@ -357,12 +388,13 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 
 24,SNOWFLAKE EDITIONS: there are four types of editions
 	-->Standard  -->Retention period =0 to 1
-	-->Enterprise -->Retention period =1 to 90
+	-->Enterprise -->Retention period =0 to 90
 	-->Business critical -->Retention period =0 to 90
 	-->virtual private -->Retention period = 0 to 90
-25,Types of virtual warehouse sizes:XS,S,M,L,XL,2XL,3XL,4XL,5XL,6XL,
+25,Types of virtual warehouse sizes:XS,S,M,L,XL,2XL,3XL,4XL,5XL,6XL,   
 
 26,43,TYPES OF ROLES IN SNOWFLAKE :-->there are 2 types of roles 
+
 	1,SYSTEM DEFINE ROLES:system define roles they are 6 types
 		-->ACCOUNTADMIN
              -->it is the top level role in the system
@@ -388,6 +420,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 	2,CUSTOMROLE:
 			 -->custom role can be created by useradmin role
 			 -->by default a newly-created role is not assigned to any user,not granted
+
 27,STAGES IN SNOWFLAKE :-->a stage is a specific data files stored  the data can be loaded into tables
 						-->They are two types of stages in snowflake
 	-->INTERNAL STAGE: we can load the data local system to snowflake, using to internal stages
@@ -578,7 +611,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
    (SELECT * FROM REJECTED2)    
    
    
-33,HOW TO INTEGRATED AWS TO SNOWFLAKE ?
+33,HOW TO INTEGRATED AWS TO SNOWFLAKE?
 
 	 --> Create AWS s3 bucket and load the files 
 	 --> Create IAM Roles to access the files in AWS 
@@ -949,7 +982,7 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 		 (ex;CREATE STREAM STREAM NAME 
 			 ON TABLE NAME 
 		 
-		2,APPEND-ONLY  STREAMS:
+		2,APPEND-ONLY STREAMS:
 		    -->Tracks only inserted rows.
 			-->Changes from updates or delete will not appear in this stream
 		  (ex:CREATE OR REPLACE STREAM STREAM NAME ON TABLE TABLE NAME 
@@ -1204,22 +1237,24 @@ OUTPUT:120 Matthew	Weiss matthew.weiss@sqltutorial.org	650.123.1234 1996-07-18	1
 			  select * from table name
 			  
 46,WHAT IS MEAN BY UDF (USER DEFINE FUNCTIONS)?
+		-->A User-Defined Function (UDF) is a function created by users to perform a specific task and return a value.
+		-->Returns a single value (Scalar UDF) or a table (Table-Valued UDF).
+		-->Cannot perform DML (INSERT, UPDATE, DELETE).
+		-->Can be used in SELECT, WHERE, GROUP BY clauses.
+		-->Accepts input parameters but does not support output parameters.
 		-->user define functions are 2 types
 		   1,scalar functions :return the single values
 		   2,tabular functions :return set of rows a tabular values
 
 47,WHAT IS MEAN BY STORED PROCEDURE?
         -->Stored procedure allow you to write a procedure code that include sql statement,
-			conditional statement,looping statement and cursor 
-		-->snowflake support 5 types of languages for writing procedure
-		    1,SQL
-			2,JAVA
-			3,JAVASCRIPT
-			4,PYTHON
-			5,SCALA
-		-->from stored procedure,you can return single values or tabular data
-		-->supports branching and looping
-		-->Dynamically creating a sql statement and execute it
+			conditional statement,looping statement and cursor
+		-->A Stored Procedure is a precompiled collection of SQL statements that can be executed as a single unit.
+
+		-->Can modify data (INSERT, UPDATE, DELETE).
+		-->Can have input and output parameters.
+		-->Cannot be used in SELECT statements.
+		-->Can include loops, conditions (IF, CASE), and transactions.
 48,HOW TO INTEGRATED THE SNOWFLAKE  TO POWER_BI?
         -->First login to snowfalke account
 		-->take account name;urb44929.us-east-1.snowflakecomputing.com
@@ -1389,17 +1424,14 @@ ANS, 0 RECORDS
 											
 83,FIND THE DEPARTMENT -->SELECT DEPARTMENT_ID,COUNT(*) FROM EMPLOYEES
 						  GROUP BY DEPARTMENT_ID
+84,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
 
-84,UNIQUE KEY-->it contain the unique values,it allow null values 
-			 -->can have multiple unique keys in single table
-			 
-85,PRIMARY KEY -->It contain the unique records,it cant allow duplicate and null values
-			   -->only one primary key for table
-			   
-			   
-86,FOREGIN KEY -->It allows duplicate  and nulls 
-			   -->can have multiple foregin key in single table 
-			   
-87,SNOWFLAKE DATA LIMIT-->NO, you can store unlimited data in snowflake	
+85,WHAT IS MEAN BY INTERNAL TALES AND EXTERNAL TABLES?
+    -->INTERNAL TABLES : Interanal tables used to load the data with inside snowflake
+	-->EXTERNAL TABLES : External tables used to load the data external sources (s3,azure block store,gcp)
+
+86,IAM RUNNING ONE QUERY IN SNOWFLAKE?WE CAN INCREASE THE VIRTUAL WAREHOUSE_SIZE?
+    -->YES WE CAN INCREASE
+	-->but it won’t impact any currently running queries—only new queries will use the updated size.
 
 
