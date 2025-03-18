@@ -16,7 +16,7 @@ Thanks for giving this oportunity
 -->after working as monitoring enginear almost 8  to  9 months i got an opportunity corporate training rhel7 successfully completed it was placed into linux L1 team.                                      												
 
 
--->as a L1 enginear my work is also handle the  incident ticke,change request,we are using the tickting tool also service now.come to the service request in different team
+-->as a L1 enginear my work is also handle the  service request incident ticke,change request,we are using the tickting tool also service now.come to the service request in different team
 
 
 -->usermanagement :creating users and deleting users modify the users user account lock and unlock issues user account passwd 
@@ -87,7 +87,6 @@ AUTOSYS: https://chatgpt.com/share/67c83021-1f94-8000-a1c5-7f6fca2e2ad3
 -->KEY FEATURES IN AUTOSYS
 	-->Job Scheduling – Automates the execution of batch jobs at specified times or based on triggers.
 	-->Dependency Management – Supports job dependencies (one job can start only after another completes).
-	-->Event-Driven Execution – Jobs can be triggered based on events like file arrival, database updates, or system conditions.
 	-->Monitoring and Alerts – Sends notifications on job failures, delays, or successes.
 	-->Multiple Job Types – Supports command jobs, file watcher jobs, and box jobs (grouping multiple jobs).
 	-->Cross-Platform Support – Works on Windows, Linux, and Unix environments.
@@ -126,6 +125,7 @@ AUTOSYS: https://chatgpt.com/share/67c83021-1f94-8000-a1c5-7f6fca2e2ad3
 
 -->COMMAN AUTOSYS COMMANDS
 
+
 	autostatus -J <job_name>	Check job status.
 	autorep -J <job_name>	Get job details.
 	sendevent -E FORCE_STARTJOB -J <job_name>	Force start a job.
@@ -134,10 +134,10 @@ AUTOSYS: https://chatgpt.com/share/67c83021-1f94-8000-a1c5-7f6fca2e2ad3
 
 -->TYPES OF SHELLS ?
 	-->BOURNE SHELL:default shell for linux,faster,lightweight
-	-->BOURNE AGAIN SHELL:It is updated version for bourne shell,commanly used for unix
+	-->BOURNE AGAIN SHELL:It is updated version for bourne shell,commanly used for unix,linux
     -->K SHELL :Supports faster script execution and floating-point arithmetic.
 	-->C SHELL :it is used for C programing languages,job controling,
-	-->Z SHELL :it is used for  auto-completion, spell correction, and theme
+	-->Z SHELL :it is used for  auto-completion, spell correction, and them
 	-->F SHELL :it is used for syntax highlighting and auto-suggestions.easy to use 
 	
 -->WHAT IS THE DIFFERENCE BETWEEN SOFTLINK AND HARDLINK ?
@@ -147,3 +147,33 @@ AUTOSYS: https://chatgpt.com/share/67c83021-1f94-8000-a1c5-7f6fca2e2ad3
 2,Original file is delete data will be loss                     2,Original file is delete data no loss
 3,it is a shortcu file 											3,it is a backup file
 4,ln-s  /source file /destination file   						4,ln  /soure file    /destination file
+
+-->CUT: when dealing with structured data and only need to extract specific fields quickly.
+		-->cut -d  -f 1 /etc/passwd
+
+-->AWK: a powerful text processing tool used for pattern scanning, data extraction, and report generation.
+		-->awk '{print $2}' file.txt
+		
+
+
+
+-----------------PERMISSIONS------------------------
+
+       USER             GROUP                 OTHERS
+	   
+	   4 2 1             4 2 1                  4 2 1
+	   R W X             R W E                  R W E
+	   
+	   
+	   DEFAULT PERMISSIONS   
+	   
+	   
+	   ------->644 -->ROOT -->file
+	   ------->755 -->ROOT -->directory
+	   
+	   ------>664  -->normal user -->files
+	   ------>775  -->normal user -->directory
+	   
+	   22,26,34
+	   
+	   
