@@ -1,0 +1,35 @@
+-->I am having 4 years of Experience in production support and my technical skills are Oracle SQL, Linux commands.
+ 
+-->I used SQL scripts to generate report based on user request and checking DB blockage.  We will write own SQL script, Then I used Linux commands for checking the feed files from upstream users, doing error analysis in log file and checking server process.
+
+-->We are eight members team; in that I am handling L1 and L2 level of incidents. I am rotating my shift in weekly basis. I have good knowledge in ITIL process. In that I’m taking responsibility to resolve incident and problem kind of tickets.
+
+-->Also having work experience in monitoring the jobs using Autosys tool. I will take the action In case of any failure. I prioritized all the tickets in service-Now tool, I will close the ticket based on SLA timing.
+
+-->used multiple tools in my project like SQL developer tool to access database , Putty configuration tool to access multiple Servers, Winscp tool for transferring files from one server to another server, ServiceNow ticketing tool for raising & closing the incidents and Autosys tool for monitoring and reporting the jobs, ITRS Geneos for alert application and server status. That’s it from my side 
+
+-->PREVIOUSLEY IAM WORKING WITH PROJECT 
+--> CAPRICON PROJECT :It is a banking domain
+--> 24/7 on call suport
+--> writing and implementing sql querie
+--> scheduling the job by using cronjobs and autosys
+--> my designation also l1,l2
+
+
+L1 (CSD) Costumer Service Disk: -
+  L1 is primarily responsible for customer issues.
+  If customers encounter an issue, they contact the L1 Team either by email or phone.
+ The L1 Team provides basic solutions for customers immediately if issues are not resolved they will create an incident and assign it to the respective team.
+
+
+L2 (SLF) Service Level Fulfillment:-
+ L1 is the source customer for the L2 Team.
+ Incidents that are not able to be resolved by the L1 Team.
+ The L2 Team resolves and communicates back to the L1 Team. 
+ The team must know the Application and Knowledge.
+ The L2 Team is Responsible for maintaining the production server.
+
+
+BPO INTERVIEW QUESTIONS:https://www.naukri.com/campus/career-guidance/bpo-interview-questions-answers
+
+
