@@ -98,10 +98,10 @@
 
 
 	    -->The place where the service is done by called place of service
+		-->PHYSICIAN                             01
+		-->TELEHEALTH 				 02 (TALK WITH PHONE CALL)
 
-		-->TELEHEALTH 					 02 (TALK WITH PHONE CALL)
-
-		-->DOCTOR OFFICE 				 11 (HOSPITAL)
+		-->DOCTOR OFFICE 			 11 (HOSPITAL)
 
 		-->HOME             			 12 (PATIENT/DOCTOR HOME)
 
@@ -117,19 +117,19 @@
 
 		-->BIRTHING CENTER  			 25
 
-		-->SKILED NURSING FACILITY (SNF) 31
+		-->SKILED NURSING FACILITY (SNF) 	 31
 
 		-->NURSING FACILITY (NF)		 32
 
-		-->HOSPACE                       34
+		-->HOSPACE                               34 
 		
 3,INSURENCE :INSURENCE THEY ARE MAINLY DEVIDED INTO 2 TYPES
       
 	-->FEDERAL INSURENCE (OR)(GOVT INSURENCE)
 	
 		-->MEDICAL COMAPNY NAMES: 1,MEDICARE
-								  2,MEDICAID
-								  3,TRICARE
+					  2,MEDICAID
+					  3,TRICARE
 								  
 		
 		1,MEDICARE: ELIGIBILITY CRITERIA
@@ -318,7 +318,7 @@
 			-->WHAT IS EFT CLEARED DATE
 			-->REQUEST EOB THROUGH FAX FOR UPDATE THE PAYMENT 
 			
-    4,CAPITATION
+   	 4,CAPITATION
 			-->CALL TO REP AND ASK WHAT IS CLAIM RECEIVED DATE
 			-->ASK REP WHAT IS THE CAPITATION PERIOD
 			-->IF DATE OF SERVICE IS NOT LIES IN CAPITATION PERIOD ASK TO REP REPROCESS CLAIM
@@ -386,10 +386,10 @@
 		-->ESTABLISH PATIENT: IT MEANS ONCE RECEIVED ANEY SERVICE  PATIENT TO THE DOCTOR PAST 3 YEARS IS CALLED ESTABLISH PATIENT
 	
 	-->CODES              NEW PATIENT                       ESTABLISH PATIENT
-			                99202								99211
-							99203								99212
-							99204								99213
-							99205                               99214
+			        99202					99211
+				99203					99212
+				99204					99213
+				99205                                   99214
 10,DX CODES: IT MEANS DIAGNOSIS CODES
 			(OR)
    ICD-10:INTERNATIONAL CLASIFICATION DISEASE
@@ -668,7 +668,7 @@
 			J	Juliet
 			K	Kilo
 			L	Larry
-			M   Mike
+			M       Mike
 			N	November
 			O	Oscar
 			P	Papa
