@@ -1,6 +1,11 @@
 -->WHICH SPACILTY YOU WORK -->RADIOLOGY
 -->E/M CODES -->99201 - 99499
 -->RADIOLOGY CODE -->70010 -79999
+	-->CPT Code	Procedure
+	-->71045	Chest X-ray, 1 view
+	-->71046	Chest X-ray, 2 views
+	-->72148	MRI Lumbar Spine, without contrast
+	-->72149	MRI Lumbar Spine, with contrast
 
 *,DENAIL MANAGEMENT:
 	-->EVERY DENAIL WAS THREE STEPS
