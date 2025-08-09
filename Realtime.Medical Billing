@@ -193,6 +193,8 @@
 
     A,INCLUSIVE: -->CERTAIN SERVICE ALREADY INCLUDE FOR THE PAYMENT FOR ANOTHER MAIN SERVICE OR PROCEDURES
 		 -->NO SEPARATE PAYMENTS
+	B,BUNDLE: -->MULTIPLE SERVICE ARE GROUPED TOGETHER AND SOLD AS PACKAGE AT A SINGLE PRICE 
+
     B,GLOBAL:  -->CERTAIN POST OPERATIVE SERVICE WILL NOT PAID FOR DURATIONS OF TIME STATING THAT IT WAS INCLUDE IN PREVIOUSLY PAID SURGERY DATE OF SERVICE  
 32,MSP -->IT MEANS MEDICARE SECONDARY PAYER
        -->MEDICARE IS BY DEFAULT SECONDARY PAYER,THERE IS NO PRIMARY INSURENCE MEDICARE HAS TO PAY PRIMARY PAYER
@@ -274,4 +276,29 @@
 	-->CO-45
 	-->CO-18
 	-->CO-96
+
+51, DIFFERENCE BETWEEN INCLUSIVE AND BUNDLE?
+
+	-->Medicare Advantage (Part C)
+
+		-->Offered by private insurance companies.
+
+		-->You get all Medicare Part A and B benefits through the plan.
+
+		-->Often includes extra benefits like vision, dental, hearing, gym memberships.
+
+		-->You usually pay copays for services.
+
+   -->Medigap (Supplement) 
+
+		-->Also offered by private companies.
+
+		-->Helps pay for out-of-pocket costs left by Original Medicare (like 20% coinsurance).
+
+		-->Does not cover prescription drugs.
+
+		-->You need to have Original Medicare (Part A & B) to buy a Medigap policy.
+
+52,52,PRE-EXISTING CONDITION -->IT MEANS ANY HEALTH ISSUE OR ILLNESS  THAT PERSON HAS TO BEFORE ENROLING NEW INSURENCE POLICY
+
 
